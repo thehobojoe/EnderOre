@@ -1,0 +1,16 @@
+[
+{
+  "modid": "enderore",
+  "name": "Ender Ore",
+  "description": "Spawns Ender Ore in the world",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Hobo Joe"],
+  "credits": "Shukaro, for making the original.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
