@@ -85,8 +85,8 @@ public class BlockEnderOre extends BlockBase {
     public void harvestBlock(World world, EntityPlayer entityplayer, BlockPos pos, IBlockState state, @Nullable TileEntity te, @Nullable ItemStack stack) {
         super.harvestBlock(world, entityplayer, pos, state, te, stack);
         int rand = world.rand.nextInt(100);
-        if(world.rand.nextInt(100) < 20) {
-            if (!world.isRemote && world.getDifficulty() != EnumDifficulty.PEACEFUL && !this.canSilkHarvest(world, pos, state, entityplayer) && Config.spawnsEnderman) {
+        if(rand < 20) {
+            if (!world.isRemote && world.getDifficulty() != EnumDifficulty.PEACEFUL && Config.spawnsEnderman) {
                 int tries = world.rand.nextInt(20);
                 for (int i = 0; i < tries; i++) {
                     int spawnX = pos.getX() + world.rand.nextInt(3) - world.rand.nextInt(3);
