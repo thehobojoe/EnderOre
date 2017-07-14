@@ -1,0 +1,114 @@
+package com.hobojoe.enderore.block
+
+import com.hobojoe.enderore.Config
+import net.minecraft.block.material.Material
+import net.minecraft.block.state.IBlockState
+import net.minecraft.creativetab.CreativeTabs
+import net.minecraft.entity.monster.EntityEnderman
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
+import net.minecraft.tileentity.TileEntity
+import net.minecraft.util.ResourceLocation
+import net.minecraft.util.SoundEvent
+import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.MathHelper
+import net.minecraft.world.EnumDifficulty
+import net.minecraft.world.World
+import java.util.Random
+
+/**
+ * Created by Joseph on 11/18/2016.
+ */
+class BlockEnderOre(
+        private val name: String,
+        private val drop: Item,
+        private val leastQuantity: Int,
+        private val mostQuantity: Int)
+    : BlockBase(Material.ROCK, name) {
+
+    init {
+        setHardness(3f)
+        setResistance(5f)
+        this.setHarvestLevel("pickaxe", 2)
+        this.setCreativeTab(CreativeTabs.MATERIALS)
+    }
+
+
+    override fun getItemDropped(state: IBlockState?, random: Random?, fortune: Int): Item? {
+        return this.drop
+    }
+
+    override fun quantityDropped(state: IBlockState?, fortune: Int, random: Random): Int {
+        if (this.leastQuantity >= this.mostQuantity)
+            return this.leastQuantity
+        return this.leastQuantity + random.nextInt(this.mostQuantity - this.leastQuantity + fortune + 1)
+    }
+
+    override fun dropBlockAsItemWithChance(w: World, pos: BlockPos, state: IBlockState, chance: Float, fortune: Int) {
+        super.dropBlockAsItemWithChance(w, pos, state, chance, fortune)
+
+        if (this.getItemDropped(state, w.rand, fortune) != Item.getItemFromBlock(this)) {
+            val xp = MathHelper.getRandomIntegerInRange(w.rand, 2, 5)
+
+            this.dropXpOnBlockBreak(w, pos, xp)
+        }
+    }
+
+    override fun quantityDroppedWithBonus(fortune: Int, rand: Random): Int {
+        if (fortune > 0 && Item.getItemFromBlock(this) !== this.getItemDropped(null, rand, fortune)) {
+            var j = rand.nextInt(fortune + 2) - 1
+
+            if (j < 0) {
+                j = 0
+            }
+
+            return this.quantityDropped(rand) * (j + 1)
+        } else {
+            return this.quantityDropped(rand)
+        }
+    }
+
+    override fun harvestBlock(world: World, entityplayer: EntityPlayer, pos: BlockPos, state: IBlockState, te: TileEntity?, stack: ItemStack?) {
+        super.harvestBlock(world, entityplayer, pos, state, te, stack)
+        val rand = world.rand.nextInt(100)
+        if (rand < 20) {
+            if (!world.isRemote && world.difficulty != EnumDifficulty.PEACEFUL && Config.spawnsEnderman) {
+                val tries = world.rand.nextInt(20)
+                for (i in 0..tries - 1) {
+                    val spawnX = pos.x + world.rand.nextInt(3) - world.rand.nextInt(3)
+                    val spawnY = pos.y + world.rand.nextInt(3) - world.rand.nextInt(3)
+                    val spawnZ = pos.z + world.rand.nextInt(3) - world.rand.nextInt(3)
+                    if (canSpawnEnder(world, pos)) {
+                        val ender = EntityEnderman(world)
+                        ender.setLocationAndAngles(spawnX.toDouble() + world.rand.nextDouble(),
+                                spawnY.toDouble() + world.rand.nextDouble(),
+                                spawnZ.toDouble() + world.rand.nextDouble(),
+                                world.rand.nextFloat(),
+                                world.rand.nextFloat())
+                        world.spawnEntityInWorld(ender)
+                        ender.spawnExplosionParticle()
+                        ender.playSound(SoundEvent(ResourceLocation("entity.endermen.teleport")), 1.0f, 1.0f)
+                        break
+                    }
+                }
+            }
+        }
+    }
+
+    private fun canSpawnEnder(world: World, pos: BlockPos): Boolean {
+        if (world.isAirBlock(pos)) {
+            if (world.isAirBlock(pos.add(0, 1, 0))) {
+                if (world.isAirBlock(pos.add(0, 2, 0))) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    override fun setCreativeTab(tab: CreativeTabs): BlockEnderOre {
+        super.setCreativeTab(tab)
+        return this
+    }
+}
