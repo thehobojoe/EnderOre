@@ -38,7 +38,7 @@ class WorldGen : IWorldGenerator {
 
         for (x in 0..pos) {
             val cx = chunkX * 16 + r.nextInt(22)
-            val cy = MathHelper.getRandomIntegerInRange(r, heightMin, heightMax)
+            val cy = r.range(heightMin, heightMax)
             val cz = chunkZ * 16 + r.nextInt(22)
             this.ore.generate(world, r, BlockPos(cx, cy, cz))
         }

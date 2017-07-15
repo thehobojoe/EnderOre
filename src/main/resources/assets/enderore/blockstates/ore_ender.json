@@ -2,8 +2,10 @@
 	"forge_marker": 1,
 	"defaults": {
 		"textures": {
-			"all": "enderore:blocks/oreEnder"
-		}
+			"all": "enderore:blocks/ore_ender"
+		},
+		"model": "cube_all",
+		"uvlock": true
 	},
 	"variants": {
 		"normal": {

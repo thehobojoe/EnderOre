@@ -1,6 +1,9 @@
 package com.hobojoe.enderore.block
 
 import com.hobojoe.enderore.Config
+import com.hobojoe.enderore.item.ModItems
+import com.hobojoe.enderore.random
+import com.hobojoe.enderore.range
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.creativetab.CreativeTabs
@@ -12,7 +15,6 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundEvent
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.MathHelper
 import net.minecraft.world.EnumDifficulty
 import net.minecraft.world.World
 import java.util.Random
@@ -21,11 +23,12 @@ import java.util.Random
  * Created by Joseph on 11/18/2016.
  */
 class BlockEnderOre(
-        private val name: String,
-        private val drop: Item,
-        private val leastQuantity: Int,
-        private val mostQuantity: Int)
+        name: String)
     : BlockBase(Material.ROCK, name) {
+
+    private val drop = ModItems.dustEnder
+    private val leastDrop = 1
+    private val mostDrop = 2
 
     init {
         setHardness(3f)
@@ -40,30 +43,27 @@ class BlockEnderOre(
     }
 
     override fun quantityDropped(state: IBlockState?, fortune: Int, random: Random): Int {
-        if (this.leastQuantity >= this.mostQuantity)
-            return this.leastQuantity
-        return this.leastQuantity + random.nextInt(this.mostQuantity - this.leastQuantity + fortune + 1)
+        return random.range(leastDrop, mostDrop + fortune)
     }
 
     override fun dropBlockAsItemWithChance(w: World, pos: BlockPos, state: IBlockState, chance: Float, fortune: Int) {
         super.dropBlockAsItemWithChance(w, pos, state, chance, fortune)
 
         if (this.getItemDropped(state, w.rand, fortune) != Item.getItemFromBlock(this)) {
-            val xp = MathHelper.getRandomIntegerInRange(w.rand, 2, 5)
-
+            val bonus = fortune * w.rand.range(0, 2)
+            val xp = w.rand.range(2, 5 + bonus)
             this.dropXpOnBlockBreak(w, pos, xp)
         }
     }
 
     override fun quantityDroppedWithBonus(fortune: Int, rand: Random): Int {
-        if (fortune > 0 && Item.getItemFromBlock(this) !== this.getItemDropped(null, rand, fortune)) {
+        if (fortune > 0 && Item.getItemFromBlock(this) != this.getItemDropped(null, rand, fortune)) {
             var j = rand.nextInt(fortune + 2) - 1
 
-            if (j < 0) {
-                j = 0
-            }
+            if (j < 0)
+                j = 1
 
-            return this.quantityDropped(rand) * (j + 1)
+            return this.quantityDropped(rand) * j
         } else {
             return this.quantityDropped(rand)
         }
@@ -86,7 +86,7 @@ class BlockEnderOre(
                                 spawnZ.toDouble() + world.rand.nextDouble(),
                                 world.rand.nextFloat(),
                                 world.rand.nextFloat())
-                        world.spawnEntityInWorld(ender)
+                        world.spawnEntity(ender)
                         ender.spawnExplosionParticle()
                         ender.playSound(SoundEvent(ResourceLocation("entity.endermen.teleport")), 1.0f, 1.0f)
                         break

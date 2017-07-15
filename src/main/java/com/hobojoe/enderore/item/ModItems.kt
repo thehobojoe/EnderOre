@@ -11,7 +11,7 @@ object ModItems {
     lateinit var dustEnder: ItemBase
 
     fun init() {
-        dustEnder = register(ItemBase("dustEnder").setCreativeTab(CreativeTabs.MATERIALS))
+        dustEnder = register(ItemBase("dust_ender").setCreativeTab(CreativeTabs.MATERIALS))
     }
 
     private fun <T : Item> register(item: T): T {
