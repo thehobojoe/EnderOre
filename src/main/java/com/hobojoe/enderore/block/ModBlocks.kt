@@ -1,35 +1,23 @@
 package com.hobojoe.enderore.block
 
-import com.hobojoe.enderore.item.ModItems
-import net.minecraft.block.Block
-import net.minecraft.item.ItemBlock
+import com.hobojoe.enderore.EnderOre
 import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
 /**
  * Created by Joseph on 11/18/2016.
  */
 object ModBlocks {
 
+    const val id = EnderOre.MODID
+
+    @GameRegistry.ObjectHolder("$id:ore_ender")
     lateinit var oreEnder: BlockEnderOre
 
-    fun init() {
-        oreEnder = register(BlockEnderOre("ore_ender"))
-    }
 
-    private fun <T : Block> register(block: T, itemBlock: ItemBlock): T {
-        GameRegistry.register(block)
-        GameRegistry.register(itemBlock)
-
-        if (block is BlockBase) {
-            block.registerItemModel(itemBlock)
-        }
-
-        return block
-    }
-
-    private fun <T : Block> register(block: T): T {
-        val itemBlock = ItemBlock(block)
-        itemBlock.registryName = block.registryName
-        return register(block, itemBlock)
+    @SideOnly(Side.CLIENT)
+    fun initModels() {
+        oreEnder.initModel()
     }
 }

@@ -1,9 +1,6 @@
 package com.hobojoe.enderore
 
-import com.hobojoe.enderore.block.ModBlocks
-import com.hobojoe.enderore.item.ModItems
 import com.hobojoe.enderore.proxy.CommonProxy
-import com.hobojoe.enderore.recipe.ModRecipes
 import net.minecraftforge.common.config.Configuration
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
@@ -20,8 +17,6 @@ class EnderOre {
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
         println(name + " is loading!")
-        ModItems.init()
-        ModBlocks.init()
 
         val directory = event.modConfigurationDirectory
         config = Configuration(File(directory.path, "enderore.cfg"))
@@ -29,9 +24,7 @@ class EnderOre {
     }
 
     @Mod.EventHandler
-    fun init(event: FMLInitializationEvent) {
-        ModRecipes.init()
-    }
+    fun init(event: FMLInitializationEvent) {}
 
     @Mod.EventHandler
     fun postInit(event: FMLPostInitializationEvent) {
@@ -50,9 +43,10 @@ class EnderOre {
 
 
         @Mod.Instance(MODID)
-        var instance: EnderOre? = null
+        lateinit var instance: EnderOre
+
 
         @SidedProxy(serverSide = "com.hobojoe.enderore.proxy.CommonProxy", clientSide = "com.hobojoe.enderore.proxy.ClientProxy")
-        var proxy: CommonProxy? = null
+        lateinit var proxy: CommonProxy
     }
 }

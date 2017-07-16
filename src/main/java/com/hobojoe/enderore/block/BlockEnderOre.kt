@@ -1,9 +1,12 @@
 package com.hobojoe.enderore.block
 
 import com.hobojoe.enderore.Config
+import com.hobojoe.enderore.EnderOre
+import com.hobojoe.enderore.item.ItemEnderDust
 import com.hobojoe.enderore.item.ModItems
 import com.hobojoe.enderore.random
 import com.hobojoe.enderore.range
+import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.creativetab.CreativeTabs
@@ -22,19 +25,22 @@ import java.util.Random
 /**
  * Created by Joseph on 11/18/2016.
  */
-class BlockEnderOre(
-        name: String)
-    : BlockBase(Material.ROCK, name) {
+class BlockEnderOre : BlockBase(Material.ROCK) {
 
-    private val drop = ModItems.dustEnder
+    val name = "ore_ender"
+    private val drop: ItemEnderDust by lazy {
+        ModItems.dustEnder
+    }
     private val leastDrop = 1
     private val mostDrop = 2
 
     init {
+        unlocalizedName = "${EnderOre.MODID}.name"
+        setRegistryName(name)
         setHardness(3f)
         setResistance(5f)
-        this.setHarvestLevel("pickaxe", 2)
-        this.setCreativeTab(CreativeTabs.MATERIALS)
+        setHarvestLevel("pickaxe", 2)
+        setCreativeTab(CreativeTabs.REDSTONE)
     }
 
 
@@ -111,4 +117,5 @@ class BlockEnderOre(
         super.setCreativeTab(tab)
         return this
     }
+
 }

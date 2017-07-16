@@ -1,26 +1,20 @@
 package com.hobojoe.enderore.item
 
-import net.minecraft.creativetab.CreativeTabs
-import net.minecraft.item.Item
+import com.hobojoe.enderore.EnderOre
 import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
 /**
  * Created by Joseph on 11/18/2016.
  */
 object ModItems {
-    lateinit var dustEnder: ItemBase
 
-    fun init() {
-        dustEnder = register(ItemBase("dust_ender").setCreativeTab(CreativeTabs.MATERIALS))
-    }
+    @GameRegistry.ObjectHolder("${EnderOre.MODID}:dust_ender")
+    lateinit var dustEnder: ItemEnderDust
 
-    private fun <T : Item> register(item: T): T {
-        GameRegistry.register(item)
-
-        if (item is ItemBase) {
-            item.registerItemModel()
-        }
-
-        return item
+    @SideOnly(Side.CLIENT)
+    fun initModels() {
+        dustEnder.initModel()
     }
 }
