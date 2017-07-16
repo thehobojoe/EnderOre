@@ -1,11 +1,14 @@
 package com.hobojoe.enderore.block
 
 import com.hobojoe.enderore.Config
+import com.hobojoe.enderore.item.ModItems
+import com.hobojoe.enderore.range
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.monster.EntityEnderman
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
@@ -20,12 +23,10 @@ import java.util.Random
 /**
  * Created by Joseph on 11/18/2016.
  */
-class BlockEnderOre(
-        private val name: String,
-        private val drop: Item,
-        private val leastQuantity: Int,
-        private val mostQuantity: Int)
-    : BlockBase(Material.ROCK, name) {
+class BlockEnderOre(private val name: String) : BlockBase(Material.ROCK, name) {
+
+    private val leastQuantity = 1
+    private val mostQuantity = 2
 
     init {
         setHardness(3f)
@@ -36,13 +37,15 @@ class BlockEnderOre(
 
 
     override fun getItemDropped(state: IBlockState?, random: Random?, fortune: Int): Item? {
-        return this.drop
+        if(Config.dropsPearls)
+            return Items.ENDER_PEARL
+        return ModItems.dustEnder
     }
 
     override fun quantityDropped(state: IBlockState?, fortune: Int, random: Random): Int {
-        if (this.leastQuantity >= this.mostQuantity)
-            return this.leastQuantity
-        return this.leastQuantity + random.nextInt(this.mostQuantity - this.leastQuantity + fortune + 1)
+        if(Config.dropsPearls)
+            return random.range(1, 1 + fortune)
+        return random.range(leastQuantity, mostQuantity + fortune)
     }
 
     override fun dropBlockAsItemWithChance(w: World, pos: BlockPos, state: IBlockState, chance: Float, fortune: Int) {
