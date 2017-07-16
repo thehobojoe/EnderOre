@@ -4,9 +4,7 @@ import com.hobojoe.enderore.Config
 import com.hobojoe.enderore.EnderOre
 import com.hobojoe.enderore.item.ItemEnderDust
 import com.hobojoe.enderore.item.ModItems
-import com.hobojoe.enderore.random
 import com.hobojoe.enderore.range
-import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.creativetab.CreativeTabs
@@ -20,19 +18,20 @@ import net.minecraft.util.SoundEvent
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.EnumDifficulty
 import net.minecraft.world.World
-import java.util.Random
+import java.util.*
 
 /**
  * Created by Joseph on 11/18/2016.
  */
 class BlockEnderOre : BlockBase(Material.ROCK) {
 
-    val name = "ore_ender"
+    private val name = "ore_ender"
+    private val leastDrop = 1
+    private val mostDrop = 2
+
     private val drop: ItemEnderDust by lazy {
         ModItems.dustEnder
     }
-    private val leastDrop = 1
-    private val mostDrop = 2
 
     init {
         unlocalizedName = "${EnderOre.MODID}.name"

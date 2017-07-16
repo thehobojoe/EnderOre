@@ -10,8 +10,8 @@ object Config {
 
     var spawnsEnderman = true
     var generatesOre = true
-    var oresPerCluster = 8
-    var clusterAmount = 15
+    var oresPerCluster = 4
+    var clusterAmount = 12
     var minHeight = 5
     var maxHeight = 20
 

@@ -10,7 +10,9 @@ import net.minecraftforge.fml.relauncher.SideOnly
  */
 object ModItems {
 
-    @GameRegistry.ObjectHolder("${EnderOre.MODID}:dust_ender")
+    const val id = EnderOre.MODID
+
+    @GameRegistry.ObjectHolder("$id:dust_ender")
     lateinit var dustEnder: ItemEnderDust
 
     @SideOnly(Side.CLIENT)

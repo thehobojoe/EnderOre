@@ -15,7 +15,6 @@ object ModBlocks {
     @GameRegistry.ObjectHolder("$id:ore_ender")
     lateinit var oreEnder: BlockEnderOre
 
-
     @SideOnly(Side.CLIENT)
     fun initModels() {
         oreEnder.initModel()
