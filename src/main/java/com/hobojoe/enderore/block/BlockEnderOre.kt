@@ -9,6 +9,7 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.monster.EntityEnderman
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
@@ -26,7 +27,7 @@ class BlockEnderOre(
         name: String)
     : BlockBase(Material.ROCK, name) {
 
-    private val drop = ModItems.dustEnder
+
     private val leastDrop = 1
     private val mostDrop = 2
 
@@ -39,10 +40,14 @@ class BlockEnderOre(
 
 
     override fun getItemDropped(state: IBlockState?, random: Random?, fortune: Int): Item? {
-        return this.drop
+        if(Config.dropsPearls)
+            return Items.ENDER_PEARL
+        return ModItems.dustEnder
     }
 
     override fun quantityDropped(state: IBlockState?, fortune: Int, random: Random): Int {
+        if(Config.dropsPearls)
+            return random.range(1, 1 + fortune)
         return random.range(leastDrop, mostDrop + fortune)
     }
 
