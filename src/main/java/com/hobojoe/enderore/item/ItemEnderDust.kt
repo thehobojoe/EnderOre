@@ -7,19 +7,17 @@ import net.minecraft.item.Item
 /**
  * Created by Joseph on 11/18/2016.
  */
-class ItemBase(private var name: String) : Item() {
+class ItemEnderDust : Item() {
+
+    private var name = "dust_ender"
 
     init {
-        unlocalizedName = name
+        unlocalizedName = "${EnderOre.MODID}.$name"
         setRegistryName(name)
+        setCreativeTab(CreativeTabs.MISC)
     }
 
     fun registerItemModel() {
-        EnderOre.proxy?.registerItemRenderer(this, 0, name)
-    }
-
-    override fun setCreativeTab(tab: CreativeTabs): ItemBase {
-        super.setCreativeTab(tab)
-        return this
+        EnderOre.proxy.registerItemRenderer(this, 0, name)
     }
 }

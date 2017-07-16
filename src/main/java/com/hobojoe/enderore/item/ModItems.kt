@@ -8,16 +8,16 @@ import net.minecraftforge.fml.common.registry.GameRegistry
  * Created by Joseph on 11/18/2016.
  */
 object ModItems {
-    lateinit var dustEnder: ItemBase
+    lateinit var dustEnder: ItemEnderDust
 
     fun init() {
-        dustEnder = register(ItemBase("dust_ender").setCreativeTab(CreativeTabs.MATERIALS))
+        dustEnder = register(ItemEnderDust())
     }
 
     private fun <T : Item> register(item: T): T {
         GameRegistry.register(item)
 
-        if (item is ItemBase) {
+        if (item is ItemEnderDust) {
             item.registerItemModel()
         }
 

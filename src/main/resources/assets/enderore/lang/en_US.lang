@@ -1,6 +1,5 @@
 # Items
-item.dustEnder.name=Ender Dust
-item.ingotSteel304.name=Steel 304
+item.enderore.dust_ender.name=Ender Dust
 
 # Blocks
-tile.ore_ender.name=Ender Ore
+tile.enderore.ore_ender.name=Ender Ore
