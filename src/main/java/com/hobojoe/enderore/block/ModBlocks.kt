@@ -13,7 +13,7 @@ object ModBlocks {
     lateinit var oreEnder: BlockEnderOre
 
     fun init() {
-        oreEnder = register(BlockEnderOre("oreEnder"))
+        oreEnder = register(BlockEnderOre("ore_ender"))
     }
 
     private fun <T : Block> register(block: T, itemBlock: ItemBlock): T {

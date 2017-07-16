@@ -1,6 +1,7 @@
 package com.hobojoe.enderore.block
 
 import com.hobojoe.enderore.Config
+import com.hobojoe.enderore.EnderOre
 import com.hobojoe.enderore.item.ModItems
 import com.hobojoe.enderore.range
 import net.minecraft.block.material.Material
@@ -31,8 +32,8 @@ class BlockEnderOre(private val name: String) : BlockBase(Material.ROCK, name) {
     init {
         setHardness(3f)
         setResistance(5f)
-        this.setHarvestLevel("pickaxe", 2)
-        this.setCreativeTab(CreativeTabs.MATERIALS)
+        setHarvestLevel("pickaxe", 2)
+        setCreativeTab(CreativeTabs.MISC)
     }
 
 

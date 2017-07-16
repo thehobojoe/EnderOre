@@ -15,12 +15,12 @@ open class BlockBase(
         private var name: String) : Block(material) {
 
     init {
-        unlocalizedName = name
+        unlocalizedName = "${EnderOre.MODID}.$name"
         setRegistryName(name)
     }
 
     fun registerItemModel(itemBlock: ItemBlock) {
-        EnderOre.proxy?.registerItemRenderer(itemBlock, 0, name)
+        EnderOre.proxy.registerItemRenderer(itemBlock, 0, name)
     }
 
     override fun setCreativeTab(tab: CreativeTabs): BlockBase {
