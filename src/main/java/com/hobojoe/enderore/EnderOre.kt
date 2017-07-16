@@ -8,11 +8,22 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.registry.GameRegistry
-
 import java.io.File
 
-@Mod(modid = EnderOre.MODID, name = EnderOre.name, version = EnderOre.VERSION)
-class EnderOre {
+
+@Mod(modid = EnderOre.MODID, modLanguageAdapter = "net.shadowfacts.forgelin.KotlinAdapter")
+object EnderOre {
+
+    const val MODID = "enderore"
+    const val name = "Ender Ore"
+    lateinit var config: Configuration
+
+    @Mod.Instance(MODID)
+    lateinit var instance: EnderOre
+
+    @SidedProxy(serverSide = "com.hobojoe.enderore.proxy.CommonProxy", clientSide = "com.hobojoe.enderore.proxy.ClientProxy")
+    lateinit var proxy: CommonProxy
+
 
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
@@ -23,8 +34,10 @@ class EnderOre {
         Config.readConfig()
     }
 
+
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent) {}
+
 
     @Mod.EventHandler
     fun postInit(event: FMLPostInitializationEvent) {
@@ -32,21 +45,5 @@ class EnderOre {
             config.save()
         if (Config.generatesOre)
             GameRegistry.registerWorldGenerator(WorldGen(), 0)
-    }
-
-    companion object {
-        const val MODID = "enderore"
-        const val name = "Ender Ore"
-        const val VERSION = "1.0"
-
-        lateinit var config: Configuration
-
-
-        @Mod.Instance(MODID)
-        lateinit var instance: EnderOre
-
-
-        @SidedProxy(serverSide = "com.hobojoe.enderore.proxy.CommonProxy", clientSide = "com.hobojoe.enderore.proxy.ClientProxy")
-        lateinit var proxy: CommonProxy
     }
 }

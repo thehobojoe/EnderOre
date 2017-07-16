@@ -31,12 +31,12 @@ class BlockEnderOre : BlockBase(Material.ROCK) {
     private val mostDrop = 2
 
     init {
-        unlocalizedName = "${EnderOre.MODID}.name"
+        unlocalizedName = "${EnderOre.MODID}.$name"
         setRegistryName(name)
         setHardness(3f)
         setResistance(5f)
         setHarvestLevel("pickaxe", 2)
-        setCreativeTab(CreativeTabs.REDSTONE)
+        setCreativeTab(CreativeTabs.MISC)
     }
 
 

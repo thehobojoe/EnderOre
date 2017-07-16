@@ -16,9 +16,9 @@ class ItemEnderDust : Item() {
     val name = "dust_ender"
 
     init {
-        unlocalizedName = "${EnderOre.MODID}.name"
+        unlocalizedName = "${EnderOre.MODID}.$name"
         setRegistryName(name)
-        setCreativeTab(CreativeTabs.REDSTONE)
+        setCreativeTab(CreativeTabs.MISC)
     }
 
     @SideOnly(Side.CLIENT)
