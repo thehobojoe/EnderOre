@@ -82,7 +82,7 @@ class BlockEnderOre : BlockBase(Material.ROCK) {
         if (rand < 20) {
             if (!world.isRemote && world.difficulty != EnumDifficulty.PEACEFUL && Config.spawnsEnderman) {
                 val tries = world.rand.nextInt(20)
-                for (i in 0..tries - 1) {
+                for (i in 0 until tries) {
                     val spawnX = pos.x + world.rand.nextInt(3) - world.rand.nextInt(3)
                     val spawnY = pos.y + world.rand.nextInt(3) - world.rand.nextInt(3)
                     val spawnZ = pos.z + world.rand.nextInt(3) - world.rand.nextInt(3)

@@ -23,6 +23,8 @@ class ItemEnderDust : Item() {
 
     @SideOnly(Side.CLIENT)
     fun initModel() {
-        ModelLoader.setCustomModelResourceLocation(this, 0 , ModelResourceLocation(registryName, "inventory"))
+        registryName?.let { name ->
+            ModelLoader.setCustomModelResourceLocation(this, 0 , ModelResourceLocation(name, "inventory"))
+        }
     }
 }

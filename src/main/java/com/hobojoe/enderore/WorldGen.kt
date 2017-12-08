@@ -29,9 +29,9 @@ class WorldGen : IWorldGenerator {
         val heightMin = Config.minHeight
         val heightMax = Config.maxHeight
 
-        val pos = (if (r.nextBoolean())
+        val pos = if (r.nextBoolean())
                     scale * 2
-                else scale) / 2 - 1
+                else scale / 2 - 1
 
         for (x in 0..pos) {
             val cx = chunkX * 16 + r.nextInt(22)
