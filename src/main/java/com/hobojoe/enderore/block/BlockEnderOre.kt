@@ -8,8 +8,10 @@ import com.hobojoe.enderore.range
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.creativetab.CreativeTabs
+import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.monster.EntityEnderman
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Enchantments
 import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -80,16 +82,20 @@ class BlockEnderOre : BlockBase(Material.ROCK) {
         super.harvestBlock(world, entityplayer, pos, state, te, stack)
         val rand = world.rand.nextInt(100)
         if (rand < 20) {
-            if (!world.isRemote && world.difficulty != EnumDifficulty.PEACEFUL && Config.spawnsEnderman) {
+
+            if (!world.isRemote
+                    && world.difficulty != EnumDifficulty.PEACEFUL
+                    && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) <= 0
+                    && Config.spawnsEnderman) {
                 val tries = world.rand.nextInt(20)
                 for (i in 0 until tries) {
                     val spawnX = pos.x + world.rand.nextInt(3) - world.rand.nextInt(3)
                     val spawnY = pos.y + world.rand.nextInt(3) - world.rand.nextInt(3)
                     val spawnZ = pos.z + world.rand.nextInt(3) - world.rand.nextInt(3)
-                    if (canSpawnEnder(world, pos)) {
+                    if (canSpawnEnder(world, BlockPos(spawnX, spawnY, spawnZ))) {
                         val ender = EntityEnderman(world)
                         ender.setLocationAndAngles(spawnX.toDouble() + world.rand.nextDouble(),
-                                spawnY.toDouble() + world.rand.nextDouble(),
+                                spawnY.toDouble() + 0,
                                 spawnZ.toDouble() + world.rand.nextDouble(),
                                 world.rand.nextFloat(),
                                 world.rand.nextFloat())
