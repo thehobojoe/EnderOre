@@ -18,16 +18,16 @@ class WorldGen : IWorldGenerator {
 
     init {
         val oreDefinition = ModBlocks.oreEnder
-        this.ore = WorldGenMinable(oreDefinition.defaultState, 4)
+        this.ore = WorldGenMinable(oreDefinition.defaultState, Config.oresPerCluster)
     }
 
     override fun generate(r: Random, chunkX: Int, chunkZ: Int, world: World, chunkGenerator: IChunkGenerator, chunkProvider: IChunkProvider) {
 
-        val oreDepthMultiplier = Config.clusterAmount.toDouble()
-        val scale = Math.round(r.nextGaussian() * Math.sqrt(oreDepthMultiplier) + oreDepthMultiplier).toInt()
-
         val heightMin = Config.minHeight
         val heightMax = Config.maxHeight
+
+        val oreDepthMultiplier = Config.clusterAmount.toDouble()
+        val scale = Math.round(r.nextGaussian() * Math.sqrt(oreDepthMultiplier) + oreDepthMultiplier).toInt()
 
         val pos = if (r.nextBoolean())
                     scale * 2

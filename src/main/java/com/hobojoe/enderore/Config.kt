@@ -35,7 +35,7 @@ object Config {
         spawnsEnderman = cfg.getBoolean("spawnsEndermen", CATEGORY_GENERAL, spawnsEnderman, "Set to false to disable endermen spawning when mining ender ore")
         generatesOre =   cfg.getBoolean("generatesOre",   CATEGORY_GENERAL, generatesOre, "Set to false to disable ore generation")
         dropsPearls =    cfg.getBoolean("dropsPearls",    CATEGORY_GENERAL, dropsPearls, "Set to true to make ender ore drop pearls instead of dust")
-        oresPerCluster = cfg.getInt("oresPerCluster",     CATEGORY_GENERAL, oresPerCluster, 1, 30, "Number of ores per cluster")
+        oresPerCluster = cfg.getInt("oresPerCluster",     CATEGORY_GENERAL, oresPerCluster, 3, 30, "Number of ores per cluster")
         clusterAmount =  cfg.getInt("clusterAmount",      CATEGORY_GENERAL, clusterAmount, 1, 30, "Number of clusters per chunk")
         minHeight =      cfg.getInt("minHeight",          CATEGORY_GENERAL, minHeight, 1, 64, "Minimum height for world generation")
         maxHeight =      cfg.getInt("maxHeight",          CATEGORY_GENERAL, maxHeight, 8, 256, "Maximum height for world generation")
