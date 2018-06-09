@@ -18,5 +18,6 @@ object ModBlocks {
     @SideOnly(Side.CLIENT)
     fun initModels() {
         oreEnder.initModel()
+        oreEnder.initOreDict()
     }
 }

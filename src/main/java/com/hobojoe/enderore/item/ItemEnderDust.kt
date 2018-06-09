@@ -7,6 +7,7 @@ import net.minecraft.item.Item
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraftforge.oredict.OreDictionary
 
 /**
  * Created by Joseph on 11/18/2016.
@@ -19,6 +20,10 @@ class ItemEnderDust : Item() {
         unlocalizedName = "${EnderOre.MODID}.$name"
         setRegistryName(name)
         setCreativeTab(CreativeTabs.MISC)
+    }
+
+    fun initOreDict() {
+        OreDictionary.registerOre("dustEnder", this)
     }
 
     @SideOnly(Side.CLIENT)

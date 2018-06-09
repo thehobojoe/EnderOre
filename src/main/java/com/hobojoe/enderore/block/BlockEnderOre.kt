@@ -21,6 +21,7 @@ import net.minecraft.util.SoundEvent
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.EnumDifficulty
 import net.minecraft.world.World
+import net.minecraftforge.oredict.OreDictionary
 import java.util.*
 
 /**
@@ -41,6 +42,9 @@ class BlockEnderOre : BlockBase(Material.ROCK) {
         setCreativeTab(CreativeTabs.MISC)
     }
 
+    fun initOreDict() {
+        OreDictionary.registerOre("oreEnder", this)
+    }
 
     override fun getItemDropped(state: IBlockState?, random: Random?, fortune: Int): Item? {
         if(Config.dropsPearls)

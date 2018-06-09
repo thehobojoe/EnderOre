@@ -18,5 +18,6 @@ object ModItems {
     @SideOnly(Side.CLIENT)
     fun initModels() {
         dustEnder.initModel()
+        dustEnder.initOreDict()
     }
 }
