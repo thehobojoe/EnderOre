@@ -1,18 +1,5 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"textures": {
-			"all": "enderore:blocks/ore_ender"
-		},
-		"model": "cube_all",
-		"uvlock": true
-	},
 	"variants": {
-		"normal": {
-			"model": "cube_all"
-		},
-		"inventory": {
-			"model": "cube_all"
-		}
+		"": { "model": "enderore:block/ore_ender" }
 	}
 }
