@@ -19,8 +19,6 @@ class EnderOreMod : ModInitializer {
     // However, some things (like resources) may still be uninitialized.
     // Proceed with mild caution.
 
-    val DUST_ENDER = Item(FabricItemSettings().group(ItemGroup.MISC))
-    val ORE_ENDER = BlockEnderOre(FabricBlockSettings.of(Material.METAL).hardness(3F))
 
     override fun onInitialize() {
         println("Ender Ore Initialized")
@@ -31,10 +29,16 @@ class EnderOreMod : ModInitializer {
         Registry.register(Registry.ITEM, Identifier("enderore", "dust_ender"), DUST_ENDER)
         Registry.register(Registry.BLOCK, Identifier("enderore", "ore_ender"), ORE_ENDER)
         Registry.register(Registry.ITEM, Identifier("enderore", "ore_ender"), BlockItem(ORE_ENDER, Item.Settings().group(ItemGroup.MISC)))
+
+        if(config.generatesOre) {
+            WorldGenerator().init()
+        }
     }
 
     companion object {
         const val MODID = "enderore"
+        val DUST_ENDER = Item(FabricItemSettings().group(ItemGroup.MISC))
+        val ORE_ENDER = BlockEnderOre(FabricBlockSettings.of(Material.METAL).hardness(3F))
 
         private lateinit var config_: ConfigHolder<EnderOreConfig>
         val config: EnderOreConfig
