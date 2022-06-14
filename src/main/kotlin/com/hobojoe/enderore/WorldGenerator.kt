@@ -1,39 +1,92 @@
 package com.hobojoe.enderore
 
-import com.hobojoe.enderore.config.EnderOreConfig
+import com.hobojoe.enderore.EnderOreMod.DEEPSLATE_ORE_ENDER
+import com.hobojoe.enderore.EnderOreMod.MODID
+import com.hobojoe.enderore.EnderOreMod.ORE_ENDER
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors
-import net.fabricmc.fabric.impl.biome.modification.BiomeSelectionContextImpl
-import net.minecraft.block.Blocks
-import net.minecraft.client.render.SkyProperties
 import net.minecraft.util.Identifier
 import net.minecraft.util.registry.BuiltinRegistries
 import net.minecraft.util.registry.Registry
+import net.minecraft.util.registry.RegistryEntry
 import net.minecraft.util.registry.RegistryKey
 import net.minecraft.world.gen.GenerationStep
-import net.minecraft.world.gen.decorator.Decorator
-import net.minecraft.world.gen.decorator.RangeDecoratorConfig
-import net.minecraft.world.gen.feature.ConfiguredFeature
-import net.minecraft.world.gen.feature.Feature
-import net.minecraft.world.gen.feature.OreFeatureConfig
+import net.minecraft.world.gen.YOffset
+import net.minecraft.world.gen.feature.*
+import net.minecraft.world.gen.placementmodifier.CountPlacementModifier
+import net.minecraft.world.gen.placementmodifier.HeightRangePlacementModifier
+import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier
+import java.util.*
 
-class WorldGenerator {
+object WorldGenerator {
 
-    private val GENERATE_ORE = Feature.ORE
-            .configure(OreFeatureConfig(
-                    OreFeatureConfig.Rules.BASE_STONE_OVERWORLD,
-                    EnderOreMod.ORE_ENDER.defaultState,
-                    EnderOreMod.config.oresPerCluster))
-            .decorate(Decorator.RANGE.configure(RangeDecoratorConfig(
-                    0, // bottom offset
-                    EnderOreMod.config.minHeight,
-                    EnderOreMod.config.maxHeight, )))
-            .spreadHorizontally()
-            .repeat(EnderOreMod.config.clusterAmount)
 
-    fun init() {
-        val oreOverworld = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, Identifier("enderore", "ender_ore_overworld"))
-        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, oreOverworld.value, GENERATE_ORE)
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, oreOverworld)
+    var ENDER_ORE_CONFIGURED_FEATURE: ConfiguredFeature<*, *> = ConfiguredFeature(
+        Feature.ORE, OreFeatureConfig(
+            OreConfiguredFeatures.STONE_ORE_REPLACEABLES,
+            ORE_ENDER.defaultState,
+            EnderOreMod.CONFIG.oresPerCluster
+        )
+    )
+
+    var ENDER_ORE_PLACED_FEATURE = PlacedFeature(
+        RegistryEntry.of(ENDER_ORE_CONFIGURED_FEATURE),
+        Arrays.asList(
+            CountPlacementModifier.of(EnderOreMod.CONFIG.clusterAmount),
+            SquarePlacementModifier.of(),
+            HeightRangePlacementModifier.uniform(YOffset.getBottom(), YOffset.fixed(EnderOreMod.CONFIG.maxHeight))
+        )
+    )
+
+    var ENDER_ORE_DEEPSLATE_CONFIGURED_FEATURE: ConfiguredFeature<*, *> = ConfiguredFeature(
+        Feature.ORE, OreFeatureConfig(
+            OreConfiguredFeatures.DEEPSLATE_ORE_REPLACEABLES,
+            DEEPSLATE_ORE_ENDER.defaultState,
+            EnderOreMod.CONFIG.oresPerCluster
+        )
+    )
+
+    var ENDER_ORE_DEEPSLATE_PLACED_FEATURE = PlacedFeature(
+        RegistryEntry.of(ENDER_ORE_DEEPSLATE_CONFIGURED_FEATURE),
+        Arrays.asList(
+            CountPlacementModifier.of(EnderOreMod.CONFIG.clusterAmount),
+            SquarePlacementModifier.of(),
+            HeightRangePlacementModifier.uniform(YOffset.getBottom(), YOffset.fixed(EnderOreMod.CONFIG.maxHeight))
+        )
+    )
+
+    fun registerOregen() {
+        if(EnderOreMod.CONFIG.generatesOre) {
+            Registry.register(
+                BuiltinRegistries.CONFIGURED_FEATURE,
+                Identifier(MODID, "ender_ore"), ENDER_ORE_CONFIGURED_FEATURE
+            )
+            Registry.register(
+                BuiltinRegistries.PLACED_FEATURE,
+                Identifier(MODID, "ender_ore"), ENDER_ORE_PLACED_FEATURE
+            )
+            BiomeModifications.addFeature(
+                BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES,
+                RegistryKey.of(
+                    Registry.PLACED_FEATURE_KEY,
+                    Identifier(MODID, "ender_ore")
+                )
+            )
+            Registry.register(
+                BuiltinRegistries.CONFIGURED_FEATURE,
+                Identifier(MODID, "deepslate_ender_ore"), ENDER_ORE_DEEPSLATE_CONFIGURED_FEATURE
+            )
+            Registry.register(
+                BuiltinRegistries.PLACED_FEATURE,
+                Identifier(MODID, "deepslate_ender_ore"), ENDER_ORE_DEEPSLATE_PLACED_FEATURE
+            )
+            BiomeModifications.addFeature(
+                BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES,
+                RegistryKey.of(
+                    Registry.PLACED_FEATURE_KEY,
+                    Identifier(MODID, "deepslate_ender_ore")
+                )
+            )
+        }
     }
 }

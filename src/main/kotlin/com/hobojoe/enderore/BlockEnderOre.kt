@@ -23,34 +23,33 @@ class BlockEnderOre(settings: Settings?) : Block(settings) {
 
         val enchants = EnchantmentHelper.get(player.mainHandStack);
         val hasSilkTouch = enchants.any { it.key === Enchantments.SILK_TOUCH }
-        val spawnEndermen = EnderOreMod.config.spawnsEnderman
+        val spawnEndermen = EnderOreMod.CONFIG.spawnsEnderman
 
-        if (chance > 1) {
-            if(
-                world.difficulty != Difficulty.PEACEFUL
-                && spawnEndermen
-                && !hasSilkTouch
-            ) {
-                val tries = rand.nextInt(20)
-                for (i in 0 until tries) {
-                    val x = pos.x + rand.nextInt(3) - rand.nextInt(3)
-                    val y = pos.y + rand.nextInt(3) - rand.nextInt(3)
-                    val z = pos.z + rand.nextInt(3) - rand.nextInt(3)
-                    if(canSpawnEnder(world, BlockPos(x, y, z))) {
-                        val ender = EndermanEntity(EntityType.ENDERMAN, world)
-                        ender.updatePositionAndAngles(
-                            x.toDouble(),
-                            y.toDouble(),
-                            z.toDouble(),
-                            rand.nextFloat(),
-                            rand.nextFloat())
-                        world.spawnEntity(ender)
-                        ender.playSound(SoundEvent(Identifier("entity.enderman.teleport")), 1F, 1F)
-                        break
-                    }
+        if(
+            world.difficulty != Difficulty.PEACEFUL
+            && spawnEndermen
+            && !hasSilkTouch
+            && chance < EnderOreMod.CONFIG.endermanChance
+        ) {
+            val tries = rand.nextInt(20)
+            for (i in 0 until tries) {
+                val x = pos.x + rand.nextInt(3) - rand.nextInt(3)
+                val y = pos.y + rand.nextInt(3) - rand.nextInt(3)
+                val z = pos.z + rand.nextInt(3) - rand.nextInt(3)
+                if(canSpawnEnder(world, BlockPos(x, y, z))) {
+                    val ender = EndermanEntity(EntityType.ENDERMAN, world)
+                    ender.updatePositionAndAngles(
+                        x.toDouble(),
+                        y.toDouble(),
+                        z.toDouble(),
+                        rand.nextFloat(),
+                        rand.nextFloat())
+                    world.spawnEntity(ender)
+                    ender.playSound(SoundEvent(Identifier("entity.enderman.teleport")), 1F, 1F)
+                    break
                 }
-
             }
+
         }
     }
 

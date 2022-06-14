@@ -1,39 +1,36 @@
 {
   "schemaVersion": 1,
   "id": "enderore",
-  "version": "${version}",
-
-  "name": "Ender Ore",
-  "description": "Spawns Ender Ore in the world",
+  "version": "1.0.0",
+  "name": "Mod Name",
+  "description": "Mod Description",
   "authors": [
-    "Hobo Joe"
+    "HoboJoe"
   ],
   "contact": {
-    "homepage": "",
-    "sources": ""
+    "homepage": "https://example.com/",
+    "issues": "https://example.com/",
+    "sources": "https://example.com/"
   },
-
-  "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
-
+  "license": "The Unlicense",
+  "icon": "assets/mod_name/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
       {
+        "adapter": "kotlin",
         "value": "com.hobojoe.enderore.EnderOreMod"
       }
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "mod_id.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.8.7",
+    "fabricloader": ">=0.13.3",
     "fabric": "*",
-    "fabric-language-kotlin": "*",
-    "minecraft": "1.16.x"
-  },
-  "suggests": {
-    "flamingo": "*"
+    "fabric-language-kotlin": ">=1.7.4+kotlin.1.6.21",
+    "minecraft": "1.18.x",
+    "java": ">=17"
   }
 }
