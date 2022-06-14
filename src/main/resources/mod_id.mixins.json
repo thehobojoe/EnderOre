@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "com.hobojoe.enderore.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": []
+}
