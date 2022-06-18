@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "enderore",
-  "version": "1.18.2-1.2",
+  "version": "1.18.2-1.2.1",
   "name": "Ender Ore",
   "description": "Adds ender ore to the world to give an alternative way to gather ender pearls",
   "authors": [

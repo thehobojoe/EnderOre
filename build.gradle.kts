@@ -31,7 +31,7 @@ dependencies {
 
 }
 tasks {
-    val javaVersion = JavaVersion.VERSION_18
+    val javaVersion = JavaVersion.VERSION_17
     withType<JavaCompile> {
         options.encoding = "UTF-8"
         sourceCompatibility = javaVersion.toString()
