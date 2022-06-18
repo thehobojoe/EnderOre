@@ -1,19 +1,17 @@
 {
   "schemaVersion": 1,
   "id": "enderore",
-  "version": "1.0.0",
-  "name": "Mod Name",
-  "description": "Mod Description",
+  "version": "1.18.2-1.2",
+  "name": "Ender Ore",
+  "description": "Adds ender ore to the world to give an alternative way to gather ender pearls",
   "authors": [
     "HoboJoe"
   ],
   "contact": {
-    "homepage": "https://example.com/",
-    "issues": "https://example.com/",
-    "sources": "https://example.com/"
+    "sources": "https://github.com/thehobojoe/EnderOre"
   },
-  "license": "The Unlicense",
-  "icon": "assets/mod_name/icon.png",
+  "license": "MIT",
+  "icon": "assets/enderore/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -23,9 +21,6 @@
       }
     ]
   },
-  "mixins": [
-    "mod_id.mixins.json"
-  ],
   "depends": {
     "fabricloader": ">=0.13.3",
     "fabric": "*",
