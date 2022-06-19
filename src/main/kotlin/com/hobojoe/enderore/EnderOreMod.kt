@@ -29,7 +29,8 @@ object EnderOreMod : ModInitializer {
         Registry.register(Registry.ITEM, Identifier("enderore", "dust_ender"), DUST_ENDER)
         Registry.register(Registry.BLOCK, Identifier("enderore", "ore_ender"), ORE_ENDER)
         Registry.register(Registry.BLOCK, Identifier("enderore", "deepslate_ore_ender"), DEEPSLATE_ORE_ENDER)
-        Registry.register(Registry.ITEM, Identifier("enderore", "ore_ender"), BlockItem(ORE_ENDER, Item.Settings().group(ItemGroup.MISC)))
+        Registry.register(Registry.ITEM, Identifier("enderore", "ore_ender"), BlockItem(ORE_ENDER, Item.Settings().group(ItemGroup.MATERIALS)))
+        Registry.register(Registry.ITEM, Identifier("enderore", "deepslate_ore_ender"), BlockItem(DEEPSLATE_ORE_ENDER, Item.Settings().group(ItemGroup.MATERIALS)))
 
         WorldGenerator.registerOregen();
     }

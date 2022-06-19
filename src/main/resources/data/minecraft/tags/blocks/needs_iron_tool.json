@@ -1,6 +1,7 @@
 {
 	"replace": false,
 	"values": [
-		"enderore:ore_ender"
+		"enderore:ore_ender",
+		"enderore:deepslate_ore_ender"
 	]
 }
