@@ -49,7 +49,6 @@ class BlockEnderOre(settings: Settings?) : Block(settings) {
                     break
                 }
             }
-
         }
     }
 
