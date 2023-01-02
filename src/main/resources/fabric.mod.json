@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "enderore",
-  "version": "1.18.2-1.2.3",
+  "version": "1.19.2.2-1.2.3",
   "name": "Ender Ore",
   "description": "Adds ender ore to the world to give an alternative way to gather ender pearls",
   "authors": [
@@ -22,10 +22,10 @@
     ]
   },
   "depends": {
-    "fabricloader": ">=0.13.3",
+    "fabricloader": ">=0.14.12",
     "fabric": "*",
-    "fabric-language-kotlin": ">=1.7.4+kotlin.1.6.21",
-    "minecraft": "1.18.x",
+    "fabric-language-kotlin": ">=1.9.0+kotlin.1.8.0",
+    "minecraft": "1.19.2",
     "java": ">=17"
   }
 }
